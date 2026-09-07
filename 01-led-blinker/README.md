@@ -1,4 +1,4 @@
-# Led Blinker
+# LED blinker
 
 **Status:** not started yet - this is a placeholder while I work through the
 earlier projects.

@@ -67,4 +67,5 @@ through a GUI - the repo builds from a clean checkout.
 
 All projects follow the testbench convention described in
 [TESTING.md](TESTING.md). Code is pushed as written - messy commits included -
-because the commit trail is part of the portfolio.
+because the commit trail is part of the portfolio. Projects are written in Verilog,
+with SystemVerilog features adopted over time as projects grow.

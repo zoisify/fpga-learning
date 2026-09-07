@@ -15,3 +15,10 @@ Every module in this repo ships with a self-checking testbench. The rules:
    self-checking testbench passes in simulation.
 5. **Named consistently.** `tb_<module>.v` next to `<module>.v` in each project
    folder.
+6. **One-command regression.** Each project has a Makefile wrapping a Vivado Tcl
+   batch flow: `make test` builds and runs every testbench in batch mode and
+   prints the summary. A project isn't done until `make test` passes from a clean
+   checkout.
+7. **Simulator breadth.** Vivado XSim is the default here. Getting the same
+   testbenches running under Questa/ModelSim is an explicit goal - many employers
+   standardise on Siemens simulators, so familiarity with them is part of the plan.

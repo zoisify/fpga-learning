@@ -1,24 +1,44 @@
-# Testbench convention
+# Verification convention
 
-Every module in this repo ships with a self-checking testbench. The rules:
+This file defines the verification standard I am working toward. It is a convention, not a claim that every planned project already satisfies it.
 
-1. **Self-checking, not visual.** Testbenches compare DUT outputs against expected
-   values with `$display`/`$error` (or assertions) and print a final
-   `TEST PASSED` / `TEST FAILED` summary. A passing project never requires
-   eyeballing a waveform.
-2. **Reference models where useful.** For anything non-trivial (FFT, filters),
-   expected outputs come from a Python/NumPy reference, loaded into the testbench
-   as hex vectors with `$readmemh`.
-3. **Edge cases are tests too.** Reset behaviour, back-to-back transactions, and
-   boundary conditions (FIFO full/empty, UART overrun) get dedicated checks.
-4. **Simulate first, board second.** Nothing goes on the Basys 3 until the
-   self-checking testbench passes in simulation.
-5. **Named consistently.** `tb_<module>.v` next to `<module>.v` in each project
-   folder.
-6. **One-command regression.** Each project has a Makefile wrapping a Vivado Tcl
-   batch flow: `make test` builds and runs every testbench in batch mode and
-   prints the summary. A project isn't done until `make test` passes from a clean
-   checkout.
-7. **Simulator breadth.** Vivado XSim is the default here. Getting the same
-   testbenches running under Questa/ModelSim is an explicit goal - many employers
-   standardise on Siemens simulators, so familiarity with them is part of the plan.
+## Minimum standard for a completed RTL project
+
+1. **Self-checking testbench.** The testbench calculates or stores expected behaviour and reports failures automatically. A waveform is useful for debugging but is not the pass criterion.
+2. **Explicit pass/fail result.** A successful run must finish with an unambiguous `TEST PASSED` message; mismatches must increment an error count or stop with an error.
+3. **Reset is tested.** Reset assertion, release, and post-reset outputs are checked.
+4. **Nominal and edge cases are separate tests.** Examples include FIFO full/empty and wraparound, UART back-to-back bytes, SPI transaction boundaries, and I2C ACK/NACK behaviour.
+5. **Simulation before hardware.** Board testing is only added after the simulation passes.
+6. **Reproducibility.** Once the Vivado flow is established, the project should include enough instructions/scripts to reproduce simulation from a clean checkout.
+7. **Evidence is committed.** A README may only say a behaviour is verified if the relevant testbench and reproducible procedure are in the repository.
+
+## File naming
+
+For Verilog/SystemVerilog projects:
+
+- RTL: `<module>.v` or `<module>.sv`
+- testbench: `tb_<module>.v` or `tb_<module>.sv`
+
+For VHDL projects:
+
+- RTL: `<module>.vhd`
+- testbench: `tb_<module>.vhd`
+
+As projects become larger, source and testbench files may move into `rtl/` and `tb/` directories.
+
+## Self-checking pattern
+
+A small testbench should normally contain stimulus generation, automatic checks, an error counter, descriptive failure messages, and a final pass/fail summary.
+
+For DSP work, expected vectors will come from a Python/NumPy reference model. For protocol work, the testbench should model the other endpoint rather than only toggling pins blindly.
+
+## Timing and CDC
+
+Functional simulation is not sufficient evidence for timing closure or CDC correctness.
+
+- Timing claims require committed constraints plus implementation/timing-report evidence.
+- CDC claims require a documented crossing architecture and checks appropriate to that design. For the planned asynchronous FIFO this means Gray-coded pointers, synchronizer stages, unrelated clocks in simulation, and explicit reasoning about what may and may not cross domains directly.
+
+## Scripted builds
+
+Scripted Vivado/Tcl or Make targets are a later milestone. Until they exist and run from a clean checkout, READMEs must call them `planned`, not `available`.

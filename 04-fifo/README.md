@@ -1,21 +1,24 @@
-# FIFO (clock-domain crossing)
+# 04 - FIFO and clock-domain crossing
 
-**Status:** not started yet - this is a placeholder while I work through the
-earlier projects.
+**Status:** planned.
 
-A synchronous FIFO with full/empty flags first, then the real point of the
-project: an **asynchronous dual-clock FIFO** built as a proper clock-domain-crossing
-exercise:
+## What it will demonstrate
 
-- Gray-code read/write pointers, so multi-bit pointer crossings are glitch-safe
-- two-flop synchronizers on the crossing paths
-- metastability treated explicitly - what it is, why synchronizers tame it, and
-  the MTBF reasoning behind the two-flop rule
+- synchronous FIFO control and pointer wraparound;
+- full/empty handling and simultaneous read/write behaviour;
+- later extension to an asynchronous dual-clock FIFO;
+- CDC reasoning using Gray-coded pointers and synchronizer stages.
 
-The testbench drives the two clocks from unrelated frequencies and checks
-full/empty behaviour, pointer wraparound, and data integrity across the domain
-crossing.
+## Scope
 
-When this project lands it will include the RTL, a self-checking testbench (see
-[TESTING.md](../TESTING.md)), and design notes with a "what I tried differently"
-section.
+Start with a synchronous FIFO. Only after that version is understood and verified will it be extended to unrelated write/read clocks.
+
+## Verification target
+
+For the synchronous version: reset, ordering, full/empty, wraparound, simultaneous operations. For the asynchronous version: unrelated clocks, data integrity, pointer crossing, and boundary behaviour.
+
+No CDC claim will be made until the asynchronous design, testbench, and crossing explanation are committed.
+
+## What I tried differently
+
+To be completed during implementation.

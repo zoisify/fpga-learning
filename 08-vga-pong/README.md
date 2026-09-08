@@ -1,10 +1,21 @@
-# VGA pong
+# 08 - VGA Pong
 
-**Status:** not started yet - this is a placeholder while I work through the
-earlier projects.
+**Status:** planned and deferrable.
 
-VGA timing generation plus pong game logic - the first complete small system, built for the Basys 3.
+## What it will demonstrate
 
-When this project lands it will include the RTL, a self-checking testbench (see
-[TESTING.md](../TESTING.md)), and design notes with a "what I tried differently"
-section.
+- pixel/video timing generation;
+- integration of timing, position and simple game-logic blocks;
+- a small complete RTL system rather than a single peripheral.
+
+## Scope
+
+A minimal Pong-style display. This project is lower priority than UART, FIFO/CDC, VHDL SPI and MSc work.
+
+## Verification target
+
+Verify horizontal/vertical timing counters and sync pulse intervals in simulation before any board output is attempted.
+
+## What I tried differently
+
+To be completed during implementation.

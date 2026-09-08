@@ -1,14 +1,23 @@
-# HLS MNIST (optional, PhD track)
+# 10 - Quantised MNIST with HLS
 
-**Status:** optional - this is the research-flavoured extra, not part of the core
-industry-track roadmap.
+**Status:** planned for March-April 2027.
 
-A small quantised MNIST network in Vitis HLS, exploring how quantisation precision
-trades against LUT usage. This is the project most relevant to a PhD in
-reconfigurable computing; it's less central for FPGA graduate and conversion roles,
-which is why it's marked optional and project 11 (Zynq SoC peripheral) is the
-industry-facing alternative.
+## What it will demonstrate
 
-When this project lands it will include the RTL, a self-checking testbench (see
-[TESTING.md](../TESTING.md)), and design notes with a "what I tried differently"
-section.
+- C/C++ used in a high-level-synthesis workflow;
+- hardware-oriented optimisation of loops/data representation;
+- quantised inference;
+- measured accuracy-versus-resource trade-offs;
+- an introduction to hardware/software and accelerator-style design thinking.
+
+## Scope
+
+Use a small MNIST inference design and vary quantisation precision. The objective is an understandable experiment, not maximum neural-network complexity.
+
+## Verification target
+
+Compare software/reference outputs with HLS C simulation and record synthesis estimates/resource results for multiple precision choices.
+
+## What I tried differently
+
+To be completed during implementation, with emphasis on transformations that changed accuracy, latency or resource estimates.

@@ -1,71 +1,52 @@
 # FPGA Learning Portfolio
 
-Aerospace engineer self-training into FPGA and digital design, targeting a PhD in
-reconfigurable computing (2027 entry) and FPGA/hardware graduate and conversion
-roles. This repo tracks that journey in public: every project, mistake and revision.
+A public record of my conversion from aerospace engineering into FPGA and digital design.
 
-## Who I am
+**Current status (8 September 2026): Week 1.** I am working through digital-logic and HDL fundamentals. The project folders below are roadmap items unless their README explicitly says `in progress` or `complete`. I have not yet claimed board verification, timing closure, scripted Vivado builds, or production-level HDL experience.
 
-I'm Alex Polyzois, an aerospace engineering graduate (MSc, University of Manchester)
-teaching myself digital design from first principles: combinational and sequential
-logic, finite state machines, interfaces, and eventually hardware acceleration.
-My background is in aircraft systems and aerodynamics; the common thread is
-engineering rigour applied to a new domain.
+I hold a 2:1 BEng in Aerospace Engineering and start an MSc in Aerospace Engineering on 22 September 2026. The MSc remains the priority; FPGA work drops sharply once term begins.
 
-## What's here
+## Portfolio structure
 
-Self-contained Verilog projects, developed simulation-first (EDA Playground and
-AMD Vivado) and later verified on a Digilent Basys 3 board. Every module ships with
-a **self-checking testbench**: no "look at the waveform and eyeball it" - each
-testbench asserts expected behaviour and reports pass/fail in the simulator log.
+| # | Project | Status | What it is intended to demonstrate |
+|---|---|---|---|
+| 01 | Basic sequential logic | Planned | counters, clock division, reset behaviour, simulation-first workflow |
+| 02 | Traffic-light FSM | Planned | finite-state-machine design, timed transitions, state-based verification |
+| 03 | UART - Verilog and VHDL | Planned | serial interfaces, baud timing, equivalent implementations in two HDLs |
+| 04 | FIFO | Planned | synchronous buffering first, then CDC using Gray-code pointers and synchronizers |
+| 05 | UART into FIFO | Planned | module integration, back-pressure/overflow handling, interface-level verification |
+| 06 | SPI master - VHDL | Planned | VHDL RTL, synchronous serial protocol control, configurable timing |
+| 07 | I2C master | Planned | open-drain signalling, ACK/NACK handling, protocol-state control |
+| 08 | VGA Pong | Planned | video timing and integration of multiple RTL blocks into a small system |
+| 09 | Fixed-point pipelined FFT | Planned | SystemVerilog, pipelining, fixed-point analysis, resource/precision trade-offs, timing closure |
+| 10 | Quantised MNIST with HLS | Planned | C/C++-based HLS, quantisation trade-offs, hardware/software-oriented acceleration workflow |
 
-Projects build in order of difficulty:
+Week-1 learning exercises live under [`exercises/`](exercises/) and are not counted as portfolio projects.
 
-| # | Project | What it practises |
-|---|---------|-------------------|
-| 01 | LED blinker | Clocks, counters, basic sequential logic |
-| 02 | Traffic light FSM | Finite state machines, timed transitions (+ a VHDL port) |
-| 03 | UART | Serial protocols, baud generation, RX/TX |
-| 04 | FIFO | Clock-domain crossing: Gray-code pointers, synchronizers, metastability |
-| 05 | SPI master | Synchronous serial interfaces, shift registers |
-| 06 | AXI4-Lite slave | Memory-mapped bus protocols, handshaking |
-| 07 | I2C master | Multi-master bus, open-drain signalling |
-| 08 | VGA pong | Video timing, a complete small system (the fun one) |
-| 09 | FFT | Pipelined fixed-point DSP, precision-vs-resource analysis, timing closure |
-| 10 | HLS MNIST (optional, PhD track) | High-level synthesis, quantised neural network inference |
-| 11 | Zynq SoC peripheral | AXI4-Lite peripheral on a Zynq, PS-PL integration, bare-metal driver |
+## Evidence standard
 
-Two things worth flagging:
+A skill is only described as **demonstrated** after the repository contains evidence for it. Depending on the project, that means some combination of:
 
-- **VHDL matters.** Most UK FPGA teams are VHDL-first, so project 02 gets a VHDL
-  port alongside the Verilog original - the portfolio shows both languages.
-- **Timing closure is a first-class topic.** Project 09 (FFT) is constrained with
-  XDC timing constraints and re-pipelined until it meets timing at 100 MHz, then
-  pushed further. Reading a timing report is a skill, not a side effect.
+- synthesizable RTL;
+- a self-checking testbench with explicit pass/fail behaviour;
+- simulator output or reproducible test instructions;
+- synthesis/implementation reports;
+- timing constraints and timing reports;
+- scripted builds or regressions that work from a clean checkout;
+- board results, when hardware is available.
 
-Each project folder has its own README with design notes, the testbench strategy,
-and a "what I tried differently" section on the iterations that didn't work first
-time - the learning is in the diffs.
+Until that evidence exists, project READMEs use forward-looking language such as `will demonstrate` rather than claiming completion.
 
-## Build flow
+## Languages and tools
 
-Every project builds and tests with one command. Each folder carries a Makefile
-wrapping a Vivado Tcl batch script: `make` builds the design, `make test` runs the
-full self-checking regression and prints the pass/fail summary. No clicking
-through a GUI - the repo builds from a clean checkout.
+Current learning starts with Verilog. SystemVerilog features are introduced gradually. VHDL is co-equal in the roadmap: the UART will be implemented in both Verilog and VHDL, and the SPI master will be VHDL-only.
 
-## Tools
+Planned tools include AMD Vivado ML Standard 2025.2, XSim, Tcl/Make-based batch flows, and Python/NumPy for later reference models. Hardware work will follow simulation rather than replace it.
 
-- **Verilog / SystemVerilog** - RTL and testbenches, plus **VHDL** for the ported project
-- **AMD Vivado ML Standard** - synthesis, implementation, simulation (XSim)
-- **Make + Tcl** - scripted, one-command builds and regressions
-- **EDA Playground** - quick browser-based simulation and sharing
-- **Basys 3 (Artix-7)** - target board for on-hardware projects
-- **Python / NumPy** - reference models and test-vector generation for the DSP work
+## Testing
 
-## Conventions
+The repository's test philosophy is defined in [`TESTING.md`](TESTING.md). The short version is: self-checking first, waveforms for diagnosis rather than proof, and no project is labelled complete until its verification evidence is committed.
 
-All projects follow the testbench convention described in
-[TESTING.md](TESTING.md). Code is pushed as written - messy commits included -
-because the commit trail is part of the portfolio. Projects are written in Verilog,
-with SystemVerilog features adopted over time as projects grow.
+## Roadmap
+
+The dated 31-week schedule is in [`PLAN.md`](PLAN.md). It is deliberately conservative after 22 September because the MSc takes priority.

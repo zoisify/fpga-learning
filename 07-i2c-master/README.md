@@ -1,10 +1,22 @@
-# I2C master
+# 07 - I2C master
 
-**Status:** not started yet - this is a placeholder while I work through the
-earlier projects.
+**Status:** planned.
 
-An I2C master with start/stop generation and ACK handling, checked against a bus monitor in the testbench.
+## What it will demonstrate
 
-When this project lands it will include the RTL, a self-checking testbench (see
-[TESTING.md](../TESTING.md)), and design notes with a "what I tried differently"
-section.
+- open-drain style bus control;
+- start/repeated-start/stop sequencing;
+- ACK/NACK handling;
+- protocol-oriented FSM design and simulated peripheral interaction.
+
+## Scope
+
+Start with a constrained single-master implementation and simulated slave/monitor. Arbitration and clock stretching are extensions, not assumed features.
+
+## Verification target
+
+Check address/data bit order, ACK/NACK paths, start/stop timing, reset and at least one error path.
+
+## What I tried differently
+
+To be completed during implementation.
